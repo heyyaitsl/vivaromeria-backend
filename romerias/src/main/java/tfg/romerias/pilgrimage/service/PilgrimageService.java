@@ -24,8 +24,8 @@ public class PilgrimageService implements IPilgrimageService{
     }
 
     @Override
-    public void savePilgrimage(Pilgrimage pilgrimage) {
-        pilgrimageRepository.save(pilgrimage);
+    public Pilgrimage savePilgrimage(Pilgrimage pilgrimage) {
+        return pilgrimageRepository.save(pilgrimage);
     }
 
     @Override

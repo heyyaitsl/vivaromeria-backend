@@ -10,7 +10,7 @@ public interface IPilgrimageService {
 
     public Pilgrimage searchPilgrimageById(Integer id);
 
-    public void savePilgrimage(Pilgrimage pilgrimage);
+    public Pilgrimage savePilgrimage(Pilgrimage pilgrimage);
 
     public void deletePilgrimage(Pilgrimage pilgrimage);
 }
