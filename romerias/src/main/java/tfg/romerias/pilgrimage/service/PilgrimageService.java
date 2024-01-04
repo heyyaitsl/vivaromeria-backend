@@ -14,12 +14,12 @@ public class PilgrimageService implements IPilgrimageService{
     PilgrimageRepository pilgrimageRepository;
 
     @Override
-    public List<Pilgrimage> showPilgrimages() {
+    public List<Pilgrimage> getPilgrimages() {
         return pilgrimageRepository.findAll();
     }
 
     @Override
-    public Pilgrimage searchPilgrimageById(Integer id) {
+    public Pilgrimage getPilgrimageById(Integer id) {
         return pilgrimageRepository.findById(id).orElse(null);
     }
 

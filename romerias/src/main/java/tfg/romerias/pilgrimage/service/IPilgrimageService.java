@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface IPilgrimageService {
 
-    public List<Pilgrimage> showPilgrimages();
+    public List<Pilgrimage> getPilgrimages();
 
-    public Pilgrimage searchPilgrimageById(Integer id);
+    public Pilgrimage getPilgrimageById(Integer id);
 
     public Pilgrimage savePilgrimage(Pilgrimage pilgrimage);
 
