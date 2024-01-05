@@ -1,7 +1,7 @@
 package tfg.romerias.pilgrimage.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tfg.romerias.exceptions.BadRequestException;
 import tfg.romerias.pilgrimage.model.Pilgrimage;
 import tfg.romerias.pilgrimage.repository.PilgrimageRepository;
 
@@ -10,8 +10,11 @@ import java.util.List;
 @Service
 public class PilgrimageService implements IPilgrimageService{
 
-    @Autowired
-    PilgrimageRepository pilgrimageRepository;
+    private final PilgrimageRepository pilgrimageRepository;
+
+    public PilgrimageService(PilgrimageRepository pilgrimageRepository) {
+        this.pilgrimageRepository = pilgrimageRepository;
+    }
 
     @Override
     public List<Pilgrimage> getPilgrimages() {
@@ -20,7 +23,7 @@ public class PilgrimageService implements IPilgrimageService{
 
     @Override
     public Pilgrimage getPilgrimageById(Integer id) {
-        return pilgrimageRepository.findById(id).orElse(null);
+        return pilgrimageRepository.findById(id).orElseThrow(() -> new BadRequestException("Id no válido")); //TODO: Check this null
     }
 
     @Override

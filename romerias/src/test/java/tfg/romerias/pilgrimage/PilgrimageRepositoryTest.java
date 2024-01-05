@@ -2,23 +2,18 @@ package tfg.romerias.pilgrimage;
 
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
 import tfg.romerias.TestDatabaseConfig;
 import tfg.romerias.pilgrimage.model.Pilgrimage;
 import tfg.romerias.pilgrimage.repository.PilgrimageRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 /*@SpringBootTest
@@ -36,27 +31,25 @@ public class PilgrimageRepositoryTest {
     @Autowired
     private PilgrimageRepository pilgrimageRepository;
 
-    private Pilgrimage pilgrimageInit;
+    private Pilgrimage pilgrimage;
     @BeforeEach
     void setup(){
-        pilgrimageInit = Pilgrimage.builder().name("Pilgrimage init").date(LocalDateTime.now()).place("place").build();
+        pilgrimage = pilgrimageRepository.save(Pilgrimage.builder().name("Pilgrimage init").date(LocalDateTime.now()).place("place").build());
     }
 
     @Test
     void savePilgrimageTest(){
-        Pilgrimage savedPilgrimage = pilgrimageRepository.save(pilgrimageInit);
-        assertThat(savedPilgrimage).isNotNull();
-        assertThat(savedPilgrimage.getId()).isGreaterThan(0);
+        assertThat(pilgrimage).isNotNull();
+        assertThat(pilgrimage.getId()).isGreaterThan(0);
 
     }
 
     @Test
     void listPilgrimagesTest(){
-        Pilgrimage pilgrimage = Pilgrimage.builder()
+        Pilgrimage pilgrimageList = Pilgrimage.builder()
                 .name("Romería Test").place("Test").date(LocalDateTime.now()).build();
         //when
-        pilgrimageRepository.save(pilgrimageInit);
-        pilgrimageRepository.save(pilgrimage);
+        pilgrimageRepository.save(pilgrimageList);
 
         List<Pilgrimage> pilgrimagesList = pilgrimageRepository.findAll();
 
@@ -66,13 +59,12 @@ public class PilgrimageRepositoryTest {
 
     @Test
     void getPilgrimageByIdTest(){
-        Pilgrimage pilgrimageFound = pilgrimageRepository.findById(pilgrimageRepository.save(pilgrimageInit).getId()).orElse(null);
+        Pilgrimage pilgrimageFound = pilgrimageRepository.findById(pilgrimage.getId()).orElse(null);
         assertThat(pilgrimageFound).isNotNull();
     }
 
     @Test
     void updatePilgrimageTest(){
-        Pilgrimage pilgrimage = pilgrimageRepository.save(pilgrimageInit);
         pilgrimage.setName("Pilgrimage update");
         pilgrimage.setPlace("Place update");
         pilgrimage.setDescription("Description update");
@@ -86,7 +78,6 @@ public class PilgrimageRepositoryTest {
 
     @Test
     void detelePilgrimageTest(){
-        Pilgrimage pilgrimage = pilgrimageRepository.save(pilgrimageInit);
         pilgrimageRepository.delete(pilgrimage);
         Pilgrimage pilgrimageDeleted = pilgrimageRepository.findById(pilgrimage.getId()).orElse(null);
         assertThat(pilgrimageDeleted).isNull();
