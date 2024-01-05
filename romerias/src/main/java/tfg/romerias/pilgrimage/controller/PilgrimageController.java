@@ -1,7 +1,6 @@
 package tfg.romerias.pilgrimage.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tfg.romerias.common.ValidationUtils;
 import tfg.romerias.pilgrimage.converter.PilgrimageConverter;
@@ -10,7 +9,6 @@ import tfg.romerias.pilgrimage.model.PilgrimageRequest;
 import tfg.romerias.pilgrimage.model.PilgrimageResponse;
 import tfg.romerias.pilgrimage.service.IPilgrimageService;
 
-import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

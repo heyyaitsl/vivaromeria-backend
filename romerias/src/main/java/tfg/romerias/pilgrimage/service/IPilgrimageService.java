@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface IPilgrimageService {
 
-    public List<Pilgrimage> getPilgrimages();
+    List<Pilgrimage> getPilgrimages();
 
-    public Pilgrimage getPilgrimageById(Integer id);
+    Pilgrimage getPilgrimageById(Integer id);
 
-    public Pilgrimage savePilgrimage(Pilgrimage pilgrimage);
+    Pilgrimage savePilgrimage(Pilgrimage pilgrimage);
 
-    public void deletePilgrimage(Pilgrimage pilgrimage);
+    void deletePilgrimage(Pilgrimage pilgrimage);
 }
