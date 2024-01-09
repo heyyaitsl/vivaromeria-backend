@@ -33,8 +33,6 @@ public class PilgrimageController {
     }
     @PostMapping()
     public PilgrimageResponse addPilgrimage(@RequestBody PilgrimageRequest pilgrimageRequest){
-        ValidationUtils.notNull(pilgrimageRequest.getName(),pilgrimageRequest.getPlace(), pilgrimageRequest.getDate());
-        ValidationUtils.notEmpty(pilgrimageRequest.getName(), pilgrimageRequest.getPlace());
         Pilgrimage pilgrimage = converter.convertFromRequest(pilgrimageRequest);
         return converter.convertToResponse(pilgrimageService.savePilgrimage(pilgrimage));
     }
@@ -46,8 +44,6 @@ public class PilgrimageController {
 
     @PutMapping("{id}")
     public  ResponseEntity<PilgrimageResponse> updatePilgrimage(@RequestBody PilgrimageRequest pilgrimageRequest){
-        ValidationUtils.notNull(pilgrimageRequest.getName(),pilgrimageRequest.getPlace(), pilgrimageRequest.getDate());
-        ValidationUtils.notEmpty(pilgrimageRequest.getName(), pilgrimageRequest.getPlace());
         Pilgrimage pilgrimage = pilgrimageService.savePilgrimage(converter.convertFromRequest(pilgrimageRequest));
         return ResponseEntity.ok(converter.convertToResponse(pilgrimage));
     }

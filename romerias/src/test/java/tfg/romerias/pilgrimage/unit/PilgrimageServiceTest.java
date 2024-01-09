@@ -1,27 +1,19 @@
-package tfg.romerias.pilgrimage;
-
-import static org.mockito.BDDMockito.given;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.willDoNothing;
-import static org.mockito.Mockito.*;
-
+package tfg.romerias.pilgrimage.unit;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tfg.romerias.pilgrimage.model.Pilgrimage;
 import tfg.romerias.pilgrimage.repository.PilgrimageRepository;
-import tfg.romerias.pilgrimage.service.IPilgrimageService;
 import tfg.romerias.pilgrimage.service.PilgrimageService;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class PilgrimageServiceTest {
@@ -37,7 +29,7 @@ public class PilgrimageServiceTest {
     }
 
     @Test
-    void getPilgrimagesTest(){
+    void shouldGetPilgrimagesTest(){
         when(pilgrimageRepository.findAll()).thenReturn(List.of(pilgrimage));
 
         pilgrimageService.getPilgrimages();
@@ -46,7 +38,7 @@ public class PilgrimageServiceTest {
     }
 
     @Test
-    void getPilgrimageByIdTest(){
+    void shouldGetPilgrimageByIdTest(){
         when(pilgrimageRepository.findById(pilgrimage.getId())).thenReturn(Optional.ofNullable(pilgrimage));
 
         pilgrimageService.getPilgrimageById(pilgrimage.getId());
@@ -55,7 +47,8 @@ public class PilgrimageServiceTest {
     }
 
     @Test
-    void savePilgrimageTest(){
+    void shouldSavePilgrimageTest(){
+
         when(pilgrimageRepository.save(pilgrimage)).thenReturn(pilgrimage);
 
         pilgrimageService.savePilgrimage(pilgrimage);
@@ -64,8 +57,8 @@ public class PilgrimageServiceTest {
     }
 
     @Test
-    void deletePilgrimageTest(){
-        willDoNothing().given(pilgrimageRepository).delete(pilgrimage);
+    void shouldDeletePilgrimageTest(){
+        doNothing().when(pilgrimageRepository).delete(pilgrimage);
 
         pilgrimageService.deletePilgrimage(pilgrimage);
 

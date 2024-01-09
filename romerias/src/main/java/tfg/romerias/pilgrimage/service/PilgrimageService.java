@@ -1,6 +1,7 @@
 package tfg.romerias.pilgrimage.service;
 
 import org.springframework.stereotype.Service;
+import tfg.romerias.common.ValidationUtils;
 import tfg.romerias.exceptions.BadRequestException;
 import tfg.romerias.pilgrimage.model.Pilgrimage;
 import tfg.romerias.pilgrimage.repository.PilgrimageRepository;
@@ -14,6 +15,7 @@ public class PilgrimageService implements IPilgrimageService{
 
     public PilgrimageService(PilgrimageRepository pilgrimageRepository) {
         this.pilgrimageRepository = pilgrimageRepository;
+
     }
 
     @Override
@@ -28,6 +30,7 @@ public class PilgrimageService implements IPilgrimageService{
 
     @Override
     public Pilgrimage savePilgrimage(Pilgrimage pilgrimage) {
+        ValidationUtils.notNull(pilgrimage.getName(),pilgrimage.getPlace(),pilgrimage.getPlace());
         return pilgrimageRepository.save(pilgrimage);
     }
 
