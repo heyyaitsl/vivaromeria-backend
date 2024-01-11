@@ -1,4 +1,4 @@
-package tfg.romerias.pilgrimage;
+package tfg.romerias.pilgrimage.unit;
 
 
 import org.junit.jupiter.api.BeforeEach;

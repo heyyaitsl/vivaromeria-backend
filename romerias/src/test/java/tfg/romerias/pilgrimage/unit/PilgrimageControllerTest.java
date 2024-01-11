@@ -4,12 +4,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import tfg.romerias.pilgrimage.controller.PilgrimageController;
 import tfg.romerias.pilgrimage.converter.PilgrimageConverter;
 import tfg.romerias.pilgrimage.model.Pilgrimage;
 import tfg.romerias.pilgrimage.model.PilgrimageRequest;
 import tfg.romerias.pilgrimage.model.PilgrimageResponse;
+import tfg.romerias.pilgrimage.service.IPilgrimageService;
 import tfg.romerias.pilgrimage.service.PilgrimageService;
 
 import java.time.LocalDateTime;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class PilgrimageControllerTest {
 
-    private final PilgrimageService pilgrimageService = mock(PilgrimageService.class);
+    private final IPilgrimageService pilgrimageService = mock(PilgrimageService.class);
     private final PilgrimageConverter converter = mock(PilgrimageConverter.class);
 
 
@@ -37,7 +37,7 @@ public class PilgrimageControllerTest {
         pilgrimageRequest = PilgrimageRequest.builder().id(1).name("Pilgrimage init").date(LocalDateTime.now()).place("place").build();
     }
     @Test
-    void shouldGelPilgrimagesTest(){
+    void shouldGetPilgrimagesTest(){
         when(pilgrimageService.getPilgrimages()).thenReturn(List.of(pilgrimage));
         when(converter.convertToResponse(pilgrimage)).thenReturn(pilgrimageResponse);
         sut.getPilgrimages();

@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.BDDMockito.willDoNothing;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)

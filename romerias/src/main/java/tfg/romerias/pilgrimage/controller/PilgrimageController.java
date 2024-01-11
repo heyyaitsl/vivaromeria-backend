@@ -2,7 +2,6 @@ package tfg.romerias.pilgrimage.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tfg.romerias.common.ValidationUtils;
 import tfg.romerias.pilgrimage.converter.PilgrimageConverter;
 import tfg.romerias.pilgrimage.model.Pilgrimage;
 import tfg.romerias.pilgrimage.model.PilgrimageRequest;
