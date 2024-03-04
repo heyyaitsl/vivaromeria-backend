@@ -32,7 +32,7 @@ public class PilgrimageControllerIntegrationTest {
     private static Integer idAuxPilgrimage;
 
     @BeforeEach
-    public void setup() throws Exception{
+    public void setup(){
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.webApplicationContext).build();
 
     }
@@ -61,7 +61,6 @@ public class PilgrimageControllerIntegrationTest {
     @Test
     @Order(2)
     void when_you_call_pilgrimage_with_get_id_then_show() throws Exception{
-        String jsonRequest = "{ \"name\": \"Nueva Romería\", \"place\": \"Ubicación\", \"date\": \"2023-02-28T19:00:00\" }";
 
         mockMvc.perform(get("/pilgrimages/{id}", 4))
                 .andExpect(status().isOk())
@@ -72,7 +71,7 @@ public class PilgrimageControllerIntegrationTest {
                 .andExpect(jsonPath("$.url").doesNotExist())
                 .andExpect(jsonPath("$.date").value("2023-06-06T09:00:00"))
                 .andExpect(jsonPath("$.route").doesNotExist())
-                .andExpect(jsonPath("$.image").doesNotExist());;
+                .andExpect(jsonPath("$.image").doesNotExist());
     }
 
     @Test
