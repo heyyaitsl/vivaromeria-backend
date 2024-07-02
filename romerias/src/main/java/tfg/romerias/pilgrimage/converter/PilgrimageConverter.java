@@ -13,14 +13,15 @@ public class PilgrimageConverter {
     public PilgrimageResponse convertToResponse(final Pilgrimage pilgrimage){
         return new PilgrimageResponse(pilgrimage.getId(),
                 pilgrimage.getName(), pilgrimage.getPlace(), pilgrimage.getDescription(),
-                pilgrimage.getUrl(), pilgrimage.getDate(), pilgrimage.getRoute(), getImage(pilgrimage));
+                pilgrimage.getUrl(), pilgrimage.getDate(), pilgrimage.getRoute(), getImage(pilgrimage), pilgrimage.getStatus(),
+                pilgrimage.getFloats());
     }
 
     public Pilgrimage convertFromRequest(final PilgrimageRequest pilgrimageRequest){
         return new Pilgrimage(pilgrimageRequest.getId(), pilgrimageRequest.getName(),
                 pilgrimageRequest.getPlace(), pilgrimageRequest.getDescription(),
                 pilgrimageRequest.getUrl(), pilgrimageRequest.getDate(),
-                pilgrimageRequest.getRoute(), getImage(pilgrimageRequest));
+                pilgrimageRequest.getRoute(), getImage(pilgrimageRequest), pilgrimageRequest.getStatus(), pilgrimageRequest.getFloats());
 
     }
 

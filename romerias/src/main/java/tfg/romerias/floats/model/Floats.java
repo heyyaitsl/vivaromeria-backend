@@ -6,6 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import tfg.romerias.pilgrimage.model.Pilgrimage;
+
+import java.util.List;
+import java.util.Map;
 
 @Entity
 @Data
@@ -27,4 +31,14 @@ public class Floats {
     @Lob
     @Column(columnDefinition = "tinyblob")
     private byte[] image;
+
+    @ManyToMany(mappedBy = "floats")
+    private List<Pilgrimage> pilgrimages;
+
+    @ElementCollection
+    @CollectionTable(name = "pilgrimage_floats", joinColumns =
+    @JoinColumn(name = "float_id")) @MapKeyJoinColumn(name = "pilgrimage_id")
+    @Column(name = "available_tickets")
+    private Map<Pilgrimage, Integer> availableTickets;
+
 }

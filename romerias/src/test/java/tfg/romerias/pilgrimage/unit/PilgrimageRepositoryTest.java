@@ -34,7 +34,7 @@ public class PilgrimageRepositoryTest {
     private Pilgrimage pilgrimage;
     @BeforeEach
     void setup(){
-        pilgrimage = pilgrimageRepository.save(Pilgrimage.builder().name("Pilgrimage init").date(LocalDateTime.now()).place("place").build());
+        pilgrimage = pilgrimageRepository.save(Pilgrimage.builder().name("Pilgrimage init").date(LocalDateTime.now()).place("place").status(0).build());
     }
 
     @Test
@@ -47,7 +47,7 @@ public class PilgrimageRepositoryTest {
     @Test
     void listPilgrimagesTest(){
         Pilgrimage pilgrimageList = Pilgrimage.builder()
-                .name("Romería Test").place("Test").date(LocalDateTime.now()).build();
+                .name("Romería Test").place("Test").date(LocalDateTime.now()).status(0).build();
         //when
         pilgrimageRepository.save(pilgrimageList);
 
@@ -68,16 +68,18 @@ public class PilgrimageRepositoryTest {
         pilgrimage.setName("Pilgrimage update");
         pilgrimage.setPlace("Place update");
         pilgrimage.setDescription("Description update");
+        pilgrimage.setStatus(1);
         Pilgrimage updatedPilgrimage = pilgrimageRepository.save(pilgrimage);
 
         assertThat(updatedPilgrimage.getId()).isEqualTo(pilgrimage.getId());
         assertThat(updatedPilgrimage.getName()).isEqualTo("Pilgrimage update");
         assertThat(updatedPilgrimage.getPlace()).isEqualTo("Place update");
         assertThat(updatedPilgrimage.getDescription()).isEqualTo("Description update");
+        assertThat(updatedPilgrimage.getStatus()).isEqualTo(1);
     }
 
     @Test
-    void detelePilgrimageTest(){
+    void deletePilgrimageTest(){
         pilgrimageRepository.delete(pilgrimage);
         Pilgrimage pilgrimageDeleted = pilgrimageRepository.findById(pilgrimage.getId()).orElse(null);
         assertThat(pilgrimageDeleted).isNull();

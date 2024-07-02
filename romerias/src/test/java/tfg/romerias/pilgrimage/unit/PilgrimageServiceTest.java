@@ -24,7 +24,7 @@ public class PilgrimageServiceTest {
     private Pilgrimage pilgrimage;
     @BeforeEach
     void setup(){
-        pilgrimage = Pilgrimage.builder().id(1).name("Pilgrimage init").date(LocalDateTime.now()).place("place").build();
+        pilgrimage = Pilgrimage.builder().id(1).name("Pilgrimage init").date(LocalDateTime.now()).place("place").status(0).build();
     }
 
     @Test

@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import tfg.romerias.floats.model.Floats;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Data
@@ -28,7 +30,19 @@ public class Pilgrimage {
     private String route;
 
     @Lob
-    @Column(columnDefinition = "tinyblob")
+    @Column(columnDefinition = "MEDIUMBLOB")
     private byte[] image;
+
+    @Column(nullable = false)
+    private Integer status;
+
+    @ManyToMany
+    @JoinTable(
+            name = "pilgrimage_floats",
+            joinColumns = @JoinColumn(name = "pilgrimage_id"),
+            inverseJoinColumns = @JoinColumn(name = "float_id")
+    )
+    private Set<Floats> floats;
+
 
 }

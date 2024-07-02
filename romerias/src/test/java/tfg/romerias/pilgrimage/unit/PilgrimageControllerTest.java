@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+import tfg.romerias.floats.converter.FloatsConverter;
 import tfg.romerias.pilgrimage.controller.PilgrimageController;
 import tfg.romerias.pilgrimage.converter.PilgrimageConverter;
 import tfg.romerias.pilgrimage.model.Pilgrimage;
@@ -22,10 +23,11 @@ public class PilgrimageControllerTest {
 
     private final IPilgrimageService pilgrimageService = mock(PilgrimageService.class);
     private final PilgrimageConverter converter = mock(PilgrimageConverter.class);
+    private final FloatsConverter converterFloat = mock(FloatsConverter.class);
 
 
     // SUT -> Subject Under Test
-    private final PilgrimageController sut = new PilgrimageController(pilgrimageService, converter);
+    private final PilgrimageController sut = new PilgrimageController(pilgrimageService, converter, converterFloat);
 
     private Pilgrimage pilgrimage;
     private PilgrimageResponse pilgrimageResponse;

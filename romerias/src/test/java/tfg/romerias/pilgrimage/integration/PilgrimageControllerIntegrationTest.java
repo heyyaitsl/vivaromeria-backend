@@ -39,45 +39,48 @@ public class PilgrimageControllerIntegrationTest {
 
 
     @Test
-    @Order(1)
+    @Order(2)
     void when_you_call_pilgrimage_with_get_then_return_a_list() throws Exception {
         this.mockMvc.perform(get("/pilgrimages"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$").isArray())
-                .andExpect(jsonPath("$", hasSize(10)))
-                .andExpect(jsonPath("$[0].name").value("Romería de Nuestra Señora de La Candelaria y Blas"))
-                .andExpect(jsonPath("$[0].place").value("Ingenio"))
-                .andExpect(jsonPath("$[0].description").value("Descripcion Romería de Nuestra Señora de La Candelaria y Blas"))
-                .andExpect(jsonPath("$[0].url").value("candelaria.com"))
-                .andExpect(jsonPath("$[0].date").value("2023-01-29T09:00:00"))
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].name").value("Nueva Romería"))
+                .andExpect(jsonPath("$[0].place").value("Ubicación"))
+                .andExpect(jsonPath("$[0].description").doesNotExist())
+                .andExpect(jsonPath("$[0].url").doesNotExist())
+                .andExpect(jsonPath("$[0].date").value("2023-02-28T19:00:00"))
                 .andExpect(jsonPath("$[0].route").doesNotExist())
-                .andExpect(jsonPath("$[0].image").doesNotExist());
+                .andExpect(jsonPath("$[0].image").doesNotExist())
+                .andExpect(jsonPath("$[0].status").value(1));
+
     }
 
 
 
-
-    @Test
-    @Order(2)
-    void when_you_call_pilgrimage_with_get_id_then_show() throws Exception{
-
-        mockMvc.perform(get("/pilgrimages/{id}", 4))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(4))
-                .andExpect(jsonPath("$.name").value("Romería de los Arbejales"))
-                .andExpect(jsonPath("$.place").value("Teror"))
-                .andExpect(jsonPath("$.description").doesNotExist())
-                .andExpect(jsonPath("$.url").doesNotExist())
-                .andExpect(jsonPath("$.date").value("2023-06-06T09:00:00"))
-                .andExpect(jsonPath("$.route").doesNotExist())
-                .andExpect(jsonPath("$.image").doesNotExist());
-    }
 
     @Test
     @Order(3)
+    void when_you_call_pilgrimage_with_get_id_then_show() throws Exception{
+
+        mockMvc.perform(get("/pilgrimages/{id}", idAuxPilgrimage))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(idAuxPilgrimage))
+                .andExpect(jsonPath("$.name").value("Nueva Romería"))
+                .andExpect(jsonPath("$.place").value("Ubicación"))
+                .andExpect(jsonPath("$.description").doesNotExist())
+                .andExpect(jsonPath("$.url").doesNotExist())
+                .andExpect(jsonPath("$.date").value("2023-02-28T19:00:00"))
+                .andExpect(jsonPath("$.route").doesNotExist())
+                .andExpect(jsonPath("$.image").doesNotExist())
+                .andExpect(jsonPath("$.status").value(1));
+    }
+
+    @Test
+    @Order(1)
     void when_you_call_pilgrimage_with_post_then_create() throws Exception{
-        String jsonRequest = "{ \"name\": \"Nueva Romería\", \"place\": \"Ubicación\", \"date\": \"2023-02-28T19:00:00\" }";
+        String jsonRequest = "{ \"name\": \"Nueva Romería\", \"place\": \"Ubicación\", \"date\": \"2023-02-28T19:00:00\", \"status\": \"1\" }";
 
         MvcResult mvcResult=mockMvc.perform(post("/pilgrimages")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -91,6 +94,7 @@ public class PilgrimageControllerIntegrationTest {
                 .andExpect(jsonPath("$.date").value("2023-02-28T19:00:00"))
                 .andExpect(jsonPath("$.route").doesNotExist())
                 .andExpect(jsonPath("$.image").doesNotExist())
+                .andExpect(jsonPath("$.status").value(1))
                 .andReturn();
         String jsonResponse = mvcResult.getResponse().getContentAsString();
         idAuxPilgrimage = Integer.parseInt(jsonResponse.substring(jsonResponse.indexOf("\"id\":")+5, jsonResponse.indexOf(",\"name\"")));
@@ -101,7 +105,7 @@ public class PilgrimageControllerIntegrationTest {
     @Test
     @Order(4)
     void when_you_call_pilgrimage_with_put_id_then_update() throws Exception{
-        String jsonRequest = "{ \"id\": "+idAuxPilgrimage+", \"name\": \"Modificada Romería\", \"place\": \"Ubicación modificada\", \"description\": \"Descripcion modificada\", \"date\": \"2023-02-28T19:00:00\"}";
+        String jsonRequest = "{ \"id\": "+idAuxPilgrimage+", \"name\": \"Modificada Romería\", \"place\": \"Ubicación modificada\", \"description\": \"Descripcion modificada\", \"date\": \"2023-02-28T19:00:00\", \"status\": \"2\"}";
 
         mockMvc.perform(put("/pilgrimages/{id}", idAuxPilgrimage).contentType(MediaType.APPLICATION_JSON)
                         .content(jsonRequest))
@@ -112,7 +116,8 @@ public class PilgrimageControllerIntegrationTest {
                 .andExpect(jsonPath("$.url").doesNotExist())
                 .andExpect(jsonPath("$.date").value("2023-02-28T19:00:00"))
                 .andExpect(jsonPath("$.route").doesNotExist())
-                .andExpect(jsonPath("$.image").doesNotExist());
+                .andExpect(jsonPath("$.image").doesNotExist())
+                .andExpect(jsonPath("$.status").value(2));
 
     }
 

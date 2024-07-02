@@ -2,6 +2,9 @@ package tfg.romerias.pilgrimage.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tfg.romerias.floats.converter.FloatsConverter;
+import tfg.romerias.floats.model.Floats;
+import tfg.romerias.floats.model.FloatsResponse;
 import tfg.romerias.pilgrimage.converter.PilgrimageConverter;
 import tfg.romerias.pilgrimage.model.Pilgrimage;
 import tfg.romerias.pilgrimage.model.PilgrimageRequest;
@@ -11,6 +14,7 @@ import tfg.romerias.pilgrimage.service.IPilgrimageService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController()
@@ -19,10 +23,12 @@ public class PilgrimageController {
 
     private final IPilgrimageService pilgrimageService;
     private final PilgrimageConverter converter;
+    private final FloatsConverter converterFloats;
 
-    public PilgrimageController(final IPilgrimageService pilgrimageService, PilgrimageConverter converter) {
+    public PilgrimageController(final IPilgrimageService pilgrimageService, PilgrimageConverter converter, FloatsConverter converterFloats) {
         this.pilgrimageService = pilgrimageService;
         this.converter = converter;
+        this.converterFloats = converterFloats;
     }
 
     @GetMapping()
@@ -54,6 +60,12 @@ public class PilgrimageController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("{id}/floats")
+    public Set<FloatsResponse> getFloatsByPilgrimageId(@PathVariable Integer id){
+        Set<Floats> floats = pilgrimageService.getFloats(id);
+        return floats.stream().map(converterFloats::convertToResponse).collect(Collectors.toSet());
     }
 
 

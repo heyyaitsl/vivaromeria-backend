@@ -4,8 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import tfg.romerias.floats.model.Floats;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,5 +23,7 @@ public class PilgrimageResponse {
     private LocalDateTime date;
     private String route;
     private String image;
+    private Integer status;
+    private Set<Floats> floats;
 
 }

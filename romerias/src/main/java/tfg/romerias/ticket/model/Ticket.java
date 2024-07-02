@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import tfg.romerias.floats.model.Floats;
+import tfg.romerias.pilgrimage.model.Pilgrimage;
 import tfg.romerias.user.model.User;
 
 import java.time.LocalDateTime;
@@ -29,4 +30,8 @@ public class Ticket {
     @ManyToOne
     @JoinColumn(name = "id_float")
     Floats floats;
+
+    @ManyToOne
+    @JoinColumn(name = "id_pilgrimage")
+    Pilgrimage pilgrimage;
 }

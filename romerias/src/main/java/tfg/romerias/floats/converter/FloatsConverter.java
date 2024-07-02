@@ -13,13 +13,13 @@ public class FloatsConverter {
 
     public FloatsResponse convertToResponse(final Floats floats){
         return new FloatsResponse(floats.getId(),floats.getName(),floats.getUsername(),floats.getPrice(),
-                floats.getMaxPeople(),floats.getDescription(),getImage(floats));
+                floats.getMaxPeople(),floats.getDescription(),getImage(floats),floats.getPilgrimages(), floats.getAvailableTickets());
     }
 
     public Floats convertFromRequest(final FloatsRequest floatsRequest){
         return new Floats(floatsRequest.getId(),floatsRequest.getName(),floatsRequest.getUsername(),
                 floatsRequest.getPrice(),floatsRequest.getMaxPeople(),floatsRequest.getDescription(),
-                getImage(floatsRequest));
+                getImage(floatsRequest), floatsRequest.getPilgrimages(), floatsRequest.getAvailableTickets());
 
     }
 

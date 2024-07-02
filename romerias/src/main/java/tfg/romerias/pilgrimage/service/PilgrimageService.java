@@ -3,10 +3,13 @@ package tfg.romerias.pilgrimage.service;
 import org.springframework.stereotype.Service;
 import tfg.romerias.common.ValidationUtils;
 import tfg.romerias.exceptions.BadRequestException;
+import tfg.romerias.floats.model.Floats;
 import tfg.romerias.pilgrimage.model.Pilgrimage;
 import tfg.romerias.pilgrimage.repository.PilgrimageRepository;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Service
 public class PilgrimageService implements IPilgrimageService{
@@ -37,6 +40,13 @@ public class PilgrimageService implements IPilgrimageService{
     @Override
     public void deletePilgrimage(Pilgrimage pilgrimage) {
         pilgrimageRepository.delete(pilgrimage);
+
+    }
+
+    @Override
+    public Set<Floats> getFloats(Integer id) {
+        return Objects.requireNonNull(pilgrimageRepository.findById(id).orElse(null)).getFloats();
+
 
     }
 }
