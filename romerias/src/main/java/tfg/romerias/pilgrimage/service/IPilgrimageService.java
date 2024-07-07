@@ -18,4 +18,6 @@ public interface IPilgrimageService {
 
     Set<Floats> getFloats(Integer id);
 
+    void addFloatToPilgrimage(Integer pilgrimageId, Integer floatsId);
+
 }

@@ -1,6 +1,7 @@
 package tfg.romerias.floats.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,8 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import tfg.romerias.pilgrimage.model.Pilgrimage;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Entity
 @Data
@@ -32,13 +32,27 @@ public class Floats {
     @Column(columnDefinition = "tinyblob")
     private byte[] image;
 
-    @ManyToMany(mappedBy = "floats")
-    private List<Pilgrimage> pilgrimages;
+    @ManyToMany(mappedBy = "floats", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonBackReference
+    private Set<Pilgrimage> pilgrimages = new HashSet<>();
 
     @ElementCollection
     @CollectionTable(name = "pilgrimage_floats", joinColumns =
     @JoinColumn(name = "float_id")) @MapKeyJoinColumn(name = "pilgrimage_id")
     @Column(name = "available_tickets")
-    private Map<Pilgrimage, Integer> availableTickets;
+    private Map<Pilgrimage, Integer> availableTickets = new HashMap<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Floats)) return false;
+        Floats floats = (Floats) o;
+        return Objects.equals(getId(), floats.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 
 }

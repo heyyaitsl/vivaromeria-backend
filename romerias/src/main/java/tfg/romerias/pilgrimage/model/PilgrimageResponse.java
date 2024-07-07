@@ -24,6 +24,6 @@ public class PilgrimageResponse {
     private String route;
     private String image;
     private Integer status;
-    private Set<Floats> floats;
+    private Set<Integer> floatsId;
 
 }

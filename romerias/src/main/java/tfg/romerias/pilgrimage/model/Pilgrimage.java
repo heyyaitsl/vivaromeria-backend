@@ -1,5 +1,6 @@
 package tfg.romerias.pilgrimage.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +9,8 @@ import lombok.NoArgsConstructor;
 import tfg.romerias.floats.model.Floats;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -36,13 +39,27 @@ public class Pilgrimage {
     @Column(nullable = false)
     private Integer status;
 
-    @ManyToMany
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "pilgrimage_floats",
             joinColumns = @JoinColumn(name = "pilgrimage_id"),
             inverseJoinColumns = @JoinColumn(name = "float_id")
     )
-    private Set<Floats> floats;
+    @JsonManagedReference
+    private Set<Floats> floats = new HashSet<>();
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Pilgrimage)) return false;
+        Pilgrimage that = (Pilgrimage) o;
+        return Objects.equals(getId(), that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 
 }

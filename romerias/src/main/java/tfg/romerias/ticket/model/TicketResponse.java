@@ -16,5 +16,6 @@ public class TicketResponse {
     private LocalDateTime date;
     private String username;
     private String floatsName;
+    private String pilgrimageName;
 
 }

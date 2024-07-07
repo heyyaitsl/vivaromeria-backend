@@ -6,8 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import tfg.romerias.pilgrimage.model.Pilgrimage;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,6 +23,5 @@ public class FloatsRequest {
     private int maxPeople;
     private String description;
     private String image;
-    private List<Pilgrimage> pilgrimages;
-    private Map<Pilgrimage, Integer> availableTickets;
+    private Map<Integer,Integer> pilgrimages = new HashMap<>();
 }

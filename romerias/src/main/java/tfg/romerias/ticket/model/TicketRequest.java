@@ -16,5 +16,6 @@ public class TicketRequest {
     private Integer id;
     private LocalDateTime date;
     private String username;
-    private Integer idFloats;
+    private Integer floatsId;
+    private Integer pilgrimageId;
 }
