@@ -27,10 +27,10 @@ public class User {
     @Column(nullable = false)
     private String phoneNumber;
     @Column(nullable = false)
-    private Integer role;
+    private String role;
 
     @Lob
-    @Column(columnDefinition = "tinyblob")
+    @Column(columnDefinition = "MEDIUMBLOB")
     private byte[] photo;
 
 

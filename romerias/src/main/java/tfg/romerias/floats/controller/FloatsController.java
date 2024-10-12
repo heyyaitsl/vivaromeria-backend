@@ -1,6 +1,7 @@
 package tfg.romerias.floats.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import tfg.romerias.floats.converter.FloatsConverter;
 import tfg.romerias.floats.model.Floats;
@@ -27,6 +28,7 @@ public class FloatsController {
 
 
     @GetMapping()
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     public List<FloatsResponse> getFloats(){
         List<Floats> floats = floatsService.getFloats();
         return floats.stream().map(converter::convertToResponse).collect(Collectors.toList());

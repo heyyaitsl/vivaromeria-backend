@@ -1,6 +1,7 @@
 package tfg.romerias.pilgrimage.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import tfg.romerias.floats.converter.FloatsConverter;
 import tfg.romerias.floats.model.Floats;
@@ -37,7 +38,9 @@ public class PilgrimageController {
         List<Pilgrimage> pilgrimages = pilgrimageService.getPilgrimages();
         return pilgrimages.stream().map(converter::convertToResponse).collect(Collectors.toList());
     }
+
     @PostMapping()
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public PilgrimageResponse addPilgrimage(@RequestBody PilgrimageRequest pilgrimageRequest){
         Pilgrimage pilgrimage = converter.convertFromRequest(pilgrimageRequest);
         return converter.convertToResponse(pilgrimageService.savePilgrimage(pilgrimage));
@@ -55,6 +58,7 @@ public class PilgrimageController {
     }
 
     @DeleteMapping("{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Map<String,Boolean>> deletePilgrimage(@PathVariable Integer id){
         Pilgrimage pilgrimage = pilgrimageService.getPilgrimageById(id);
         pilgrimageService.deletePilgrimage(pilgrimage);
