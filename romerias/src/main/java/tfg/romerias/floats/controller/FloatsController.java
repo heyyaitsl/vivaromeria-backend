@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/floats")
+@CrossOrigin(value = "http://localhost:5173")
 public class FloatsController {
     private final IFloatsService floatsService;
     private final FloatsConverter converter;

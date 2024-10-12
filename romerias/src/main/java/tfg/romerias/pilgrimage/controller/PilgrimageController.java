@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 
 @RestController()
 @RequestMapping("/pilgrimages")
+@CrossOrigin(value = "http://localhost:5173")
 public class PilgrimageController {
 
     private final IPilgrimageService pilgrimageService;
