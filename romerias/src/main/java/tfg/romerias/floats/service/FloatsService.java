@@ -29,7 +29,7 @@ public class FloatsService implements IFloatsService {
 
     @Override
     public Floats saveFloat(Floats floats) {
-        ValidationUtils.notNull(floats.getUsername(),floats.getName(),floats.getPrice());
+        ValidationUtils.notNull(floats.getUser().getUsername(),floats.getName(),floats.getPrice());
         return floatsRepository.save(floats);
     }
 

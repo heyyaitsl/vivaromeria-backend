@@ -19,10 +19,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 @Component
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
-    private final UserDetailsService userDetailsService;
+    private final CustomUserDetailsService userDetailsService;
     private final TokenService tokenService;
 
-    public JWTAuthenticationFilter(UserDetailsService userDetailsService, TokenService tokenService) {
+    public JWTAuthenticationFilter(CustomUserDetailsService userDetailsService, TokenService tokenService) {
         this.userDetailsService = userDetailsService;
         this.tokenService = tokenService;
     }

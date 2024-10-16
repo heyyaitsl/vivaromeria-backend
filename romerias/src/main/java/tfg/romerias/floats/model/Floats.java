@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import tfg.romerias.pilgrimage.model.Pilgrimage;
+import tfg.romerias.user.model.User;
 
 import java.util.*;
 
@@ -22,8 +23,11 @@ public class Floats {
     private Integer id;
     @Column(nullable = false)
     private String name;
-    @Column(nullable = false)
-    private String username;
+
+    @ManyToOne
+    @JoinColumn(name = "username")
+    private User user;
+
     @Column(nullable = false)
     private double price;
     private int maxPeople;
@@ -31,6 +35,8 @@ public class Floats {
     @Lob
     @Column(columnDefinition = "tinyblob")
     private byte[] image;
+
+
 
     @ManyToMany(mappedBy = "floats", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonBackReference
@@ -54,5 +60,7 @@ public class Floats {
     public int hashCode() {
         return Objects.hash(getId());
     }
+
+
 
 }
