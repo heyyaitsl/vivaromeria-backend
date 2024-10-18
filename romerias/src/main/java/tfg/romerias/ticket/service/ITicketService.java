@@ -11,6 +11,7 @@ public interface ITicketService {
     List<Ticket> getTickets();
 
     List<Ticket> getTicketsByFloat(Integer idFloats);
+    List<Ticket> getTicketsByUsername(String username);
 
     Ticket getTicketById(Integer id);
 

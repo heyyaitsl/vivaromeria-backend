@@ -73,7 +73,7 @@ public class PilgrimageController {
         return floats.stream().map(converterFloats::convertToResponse).collect(Collectors.toSet());
     }
 
-    @PutMapping ("{pilgrimageId}/addFloat/{floatId}")
+    @GetMapping("{pilgrimageId}/addFloat/{floatId}")
     public ResponseEntity<String> addFloatToPilgrimage(@PathVariable Integer pilgrimageId,
                                                        @PathVariable Integer floatId){
         pilgrimageService.addFloatToPilgrimage(pilgrimageId,floatId);

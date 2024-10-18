@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @Builder
 public class TicketRequest {
     private Integer id;
-    private LocalDateTime date;
     private String username;
     private Integer floatsId;
     private Integer pilgrimageId;

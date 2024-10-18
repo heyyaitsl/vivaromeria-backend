@@ -39,7 +39,12 @@ public class TicketService implements ITicketService{
 
     @Override
     public List<Ticket> getTicketsByFloat(Integer idFloats) {
-        return ticketRepository.findTicketsByFloat(idFloats);
+        return ticketRepository.findByFloatsId(idFloats);
+    }
+
+    @Override
+    public List<Ticket> getTicketsByUsername(String username) {
+        return ticketRepository.findByUserUsername(username);
     }
 
     @Override
@@ -69,7 +74,7 @@ public class TicketService implements ITicketService{
         }
         availableTickets.put(pilgrimage, ticketsAvailable - 1);
         floats.setAvailableTickets(availableTickets);
-        floatsService.saveFloat(floats);
+        //floatsService.saveFloat(floats);
         Ticket newTicket =  Ticket.builder()
                 .date(LocalDateTime.now())
                 .user(user)

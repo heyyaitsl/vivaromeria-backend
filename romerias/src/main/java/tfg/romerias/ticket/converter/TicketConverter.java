@@ -27,12 +27,12 @@ public class TicketConverter {
                 ticket.getUser().getUsername(),ticket.getFloats().getName(),ticket.getPilgrimage().getName());
     }
 
-    public Ticket convertFromRequest(final TicketRequest ticketRequest){
+    /*public Ticket convertFromRequest(final TicketRequest ticketRequest){
         return new Ticket(ticketRequest.getId(), ticketRequest.getDate(),
                 getUser(ticketRequest.getUsername()), getFloat(ticketRequest.getFloatsId()),
                 getPilgrimage(ticketRequest.getPilgrimageId()));
 
-    }
+    }*/
 
     private User getUser(String username){
         return new User();
