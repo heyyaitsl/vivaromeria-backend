@@ -27,7 +27,7 @@ public class PilgrimageConverter {
         return new PilgrimageResponse(pilgrimage.getId(),
                 pilgrimage.getName(), pilgrimage.getPlace(), pilgrimage.getDescription(),
                 pilgrimage.getUrl(), pilgrimage.getDate(), pilgrimage.getRoute(), getImage(pilgrimage), pilgrimage.getStatus(),
-                getFloatsId(pilgrimage.getFloats()));
+                getFloatsId(pilgrimage.getFloats()), pilgrimage.getComments());
     }
 
     public Pilgrimage convertFromRequest(final PilgrimageRequest pilgrimageRequest){
@@ -35,7 +35,7 @@ public class PilgrimageConverter {
                 pilgrimageRequest.getPlace(), pilgrimageRequest.getDescription(),
                 pilgrimageRequest.getUrl(), pilgrimageRequest.getDate(),
                 pilgrimageRequest.getRoute(), getImage(pilgrimageRequest), pilgrimageRequest.getStatus(),
-                getFloats(pilgrimageRequest.getFloatsId()));
+                getFloats(pilgrimageRequest.getFloatsId()), pilgrimageRequest.getComments());
 
     }
 

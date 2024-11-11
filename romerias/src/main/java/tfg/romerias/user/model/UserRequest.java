@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import tfg.romerias.comments.model.Comment;
 import tfg.romerias.floats.model.Floats;
 
 import java.util.HashSet;
@@ -22,5 +23,6 @@ public class UserRequest {
     private String role;
     private String photo;
     private Set<Integer> floats = new HashSet<>();
+    private Set<Comment> comments = new HashSet<>();
 
 }

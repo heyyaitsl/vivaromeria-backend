@@ -1,6 +1,9 @@
 package tfg.romerias.pilgrimage.service;
 
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import tfg.romerias.common.ValidationUtils;
 import tfg.romerias.exceptions.BadRequestException;
@@ -61,10 +64,12 @@ public class PilgrimageService implements IPilgrimageService{
     public void addFloatToPilgrimage(Integer pilgrimageId, Integer floatsId) {
         Pilgrimage pilgrimage = getPilgrimageById(pilgrimageId);
         Floats floats = floatsService.getFloatById(floatsId);
-        //pilgrimage.getFloats().add(floats);
-        //floats.getPilgrimages().add(pilgrimage);
         floats.getAvailableTickets().put(pilgrimage, floats.getMaxPeople());
-        //savePilgrimage(pilgrimage);
-        //floatsService.saveFloat(floats);
+    }
+
+    @Override
+    public Page<Pilgrimage> getPilgrimages(int pageNo, int pageSize){
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        return pilgrimageRepository.findAll(pageable);
     }
 }

@@ -1,5 +1,6 @@
 package tfg.romerias.pilgrimage.service;
 
+import org.springframework.data.domain.Page;
 import tfg.romerias.floats.model.Floats;
 import tfg.romerias.pilgrimage.model.Pilgrimage;
 
@@ -19,5 +20,6 @@ public interface IPilgrimageService {
     Set<Floats> getFloats(Integer id);
 
     void addFloatToPilgrimage(Integer pilgrimageId, Integer floatsId);
+    Page<Pilgrimage> getPilgrimages(int pageNo, int pageSize);
 
 }

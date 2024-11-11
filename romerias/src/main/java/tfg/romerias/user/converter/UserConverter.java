@@ -22,11 +22,11 @@ public class UserConverter {
 
     public UserResponse convertToResponse(User user){
         return new UserResponse(user.getUsername(), user.getPassword(), user.getName(), user.getEmail(),
-                user.getPhoneNumber(), user.getRole(), getImage(user), getFloatsId(user.getFloats()));
+                user.getPhoneNumber(), user.getRole(), getImage(user), getFloatsId(user.getFloats()), user.getComments());
     }
     public User convertFromRequest(UserRequest user){
         return new User(user.getUsername(), user.getPassword(), user.getName(), user.getEmail(),
-                user.getPhoneNumber(), user.getRole(), getImage(user), getFloats(user.getFloats()));
+                user.getPhoneNumber(), user.getRole(), getImage(user), getFloats(user.getFloats()), user.getComments());
     }
 
     private static byte[] getImage(UserRequest userRequest) {

@@ -1,5 +1,6 @@
 package tfg.romerias.pilgrimage.controller;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -33,10 +34,17 @@ public class PilgrimageController {
         this.converterFloats = converterFloats;
     }
 
-    @GetMapping()
+    /*@GetMapping()
     public List<PilgrimageResponse> getPilgrimages(){
         List<Pilgrimage> pilgrimages = pilgrimageService.getPilgrimages();
         return pilgrimages.stream().map(converter::convertToResponse).collect(Collectors.toList());
+    }*/
+    @GetMapping()
+    public ResponseEntity<Page<PilgrimageResponse>> getPilgrimagesPagination(
+            @RequestParam(defaultValue = "0") int pageNo,
+            @RequestParam(defaultValue = "10") int pageSize){
+        Page<Pilgrimage> pilgrimages = pilgrimageService.getPilgrimages(pageNo,pageSize);
+        return ResponseEntity.ok(pilgrimages.map(converter::convertToResponse));
     }
 
     @PostMapping()
