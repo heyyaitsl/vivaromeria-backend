@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import tfg.romerias.comments.model.Comment;
 import tfg.romerias.floats.model.Floats;
 
 import java.time.LocalDateTime;
@@ -48,6 +49,9 @@ public class Pilgrimage {
     )
     @JsonManagedReference
     private Set<Floats> floats = new HashSet<>();
+
+    @OneToMany(mappedBy = "pilgrimage")
+    private Set<Comment> comments = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

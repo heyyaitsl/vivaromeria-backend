@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import tfg.romerias.comments.model.Comment;
 import tfg.romerias.floats.model.Floats;
 
 import java.util.HashSet;
@@ -36,6 +37,9 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private Set<Floats> floats = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<Comment> comments = new HashSet<>();
 
 
 

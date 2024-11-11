@@ -2,7 +2,6 @@ package tfg.romerias.comments.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import tfg.romerias.comments.model.Comment;
-import tfg.romerias.ticket.model.Ticket;
 
 import java.util.List;
 
