@@ -34,15 +34,15 @@ public class PilgrimageController {
         this.converterFloats = converterFloats;
     }
 
-    /*@GetMapping()
+    @GetMapping("/all")
     public List<PilgrimageResponse> getPilgrimages(){
         List<Pilgrimage> pilgrimages = pilgrimageService.getPilgrimages();
         return pilgrimages.stream().map(converter::convertToResponse).collect(Collectors.toList());
-    }*/
+    }
     @GetMapping()
     public ResponseEntity<Page<PilgrimageResponse>> getPilgrimagesPagination(
             @RequestParam(defaultValue = "0") int pageNo,
-            @RequestParam(defaultValue = "10") int pageSize){
+            @RequestParam(defaultValue = "5") int pageSize){
         Page<Pilgrimage> pilgrimages = pilgrimageService.getPilgrimages(pageNo,pageSize);
         return ResponseEntity.ok(pilgrimages.map(converter::convertToResponse));
     }
