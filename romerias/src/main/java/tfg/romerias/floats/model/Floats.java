@@ -33,7 +33,7 @@ public class Floats {
     private int maxPeople;
     private String description;
     @Lob
-    @Column(columnDefinition = "tinyblob")
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] image;
 
 

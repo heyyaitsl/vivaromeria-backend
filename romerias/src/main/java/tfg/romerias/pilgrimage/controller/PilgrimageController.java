@@ -1,6 +1,7 @@
 package tfg.romerias.pilgrimage.controller;
 
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -47,9 +48,10 @@ public class PilgrimageController {
         return ResponseEntity.ok(pilgrimages.map(converter::convertToResponse));
     }
 
-    @PostMapping()
+    @PostMapping(consumes = MediaType.ALL_VALUE)
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public PilgrimageResponse addPilgrimage(@RequestBody PilgrimageRequest pilgrimageRequest){
+        System.out.println("PilgrimaRequest: " + pilgrimageRequest);
         Pilgrimage pilgrimage = converter.convertFromRequest(pilgrimageRequest);
         return converter.convertToResponse(pilgrimageService.savePilgrimage(pilgrimage));
     }

@@ -34,7 +34,7 @@ public class Pilgrimage {
     private String route;
 
     @Lob
-    @Column(columnDefinition = "MEDIUMBLOB")
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] image;
 
     @Column(nullable = false)

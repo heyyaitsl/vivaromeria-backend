@@ -7,5 +7,7 @@ import java.util.List;
 public interface ICommentService {
     List<Comment> getCommentsByPilgrimage(Integer idPilgrimage);
     List<Comment> getCommentsByUser(String username);
+
+    Comment getCommentById(Integer id);
     Comment saveComment(Comment comment);
 }

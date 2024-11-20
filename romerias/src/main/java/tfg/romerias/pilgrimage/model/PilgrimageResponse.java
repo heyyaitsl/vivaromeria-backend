@@ -26,7 +26,7 @@ public class PilgrimageResponse {
     private String image;
     private Integer status;
     private Set<Integer> floatsId;
-    private Set<Comment> comments;
+    private Set<Integer> commentsId;
 
 
 }

@@ -4,12 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import tfg.romerias.comments.model.Comment;
-import tfg.romerias.floats.model.Floats;
+import tfg.romerias.comments.model.CommentRequest;
 
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -27,7 +25,7 @@ public class PilgrimageRequest {
     private String image;
     private Integer status;
     private Set<Integer> floatsId;
-    private Set<Comment> comments;
+    private Set<Integer> commentsId;
 
 
 

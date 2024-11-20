@@ -1,6 +1,8 @@
 package tfg.romerias.pilgrimage.converter;
 
 import org.springframework.stereotype.Component;
+import tfg.romerias.comments.model.Comment;
+import tfg.romerias.comments.service.ICommentService;
 import tfg.romerias.floats.model.Floats;
 import tfg.romerias.floats.service.FloatsService;
 import tfg.romerias.floats.service.IFloatsService;
@@ -18,16 +20,18 @@ import java.util.stream.Collectors;
 public class PilgrimageConverter {
 
     private final IFloatsService floatsService;
+    private final ICommentService commentService;
 
-    public PilgrimageConverter(final IFloatsService floatsService) {
+    public PilgrimageConverter(final IFloatsService floatsService, ICommentService commentService) {
         this.floatsService = floatsService;
+        this.commentService = commentService;
     }
 
     public PilgrimageResponse convertToResponse(final Pilgrimage pilgrimage){
         return new PilgrimageResponse(pilgrimage.getId(),
                 pilgrimage.getName(), pilgrimage.getPlace(), pilgrimage.getDescription(),
                 pilgrimage.getUrl(), pilgrimage.getDate(), pilgrimage.getRoute(), getImage(pilgrimage), pilgrimage.getStatus(),
-                getFloatsId(pilgrimage.getFloats()), pilgrimage.getComments());
+                getFloatsId(pilgrimage.getFloats()), getCommentsId(pilgrimage.getComments()));
     }
 
     public Pilgrimage convertFromRequest(final PilgrimageRequest pilgrimageRequest){
@@ -35,7 +39,7 @@ public class PilgrimageConverter {
                 pilgrimageRequest.getPlace(), pilgrimageRequest.getDescription(),
                 pilgrimageRequest.getUrl(), pilgrimageRequest.getDate(),
                 pilgrimageRequest.getRoute(), getImage(pilgrimageRequest), pilgrimageRequest.getStatus(),
-                getFloats(pilgrimageRequest.getFloatsId()), pilgrimageRequest.getComments());
+                getFloats(pilgrimageRequest.getFloatsId()), getComments(pilgrimageRequest.getCommentsId()));
 
     }
 
@@ -64,5 +68,14 @@ public class PilgrimageConverter {
     private Set<Floats> getFloats(Set<Integer> floatsId){
         if(floatsId==null)return new HashSet<>();
         return floatsId.stream().map(floatsService::getFloatById).collect(Collectors.toSet());
+    }
+
+    private static Set<Integer> getCommentsId(Set<Comment> comments){
+        if(comments==null)return null;
+        return comments.stream().map(Comment::getId).collect(Collectors.toSet());
+    }
+    private Set<Comment> getComments(Set<Integer> commentsId){
+        if(commentsId==null)return new HashSet<>();
+        return commentsId.stream().map(commentService::getCommentById).collect(Collectors.toSet());
     }
 }
