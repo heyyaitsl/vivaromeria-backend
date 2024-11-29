@@ -21,13 +21,13 @@ public class CommentConverter {
     public CommentResponse convertToResponse(final Comment comment){
         return new CommentResponse(comment.getId(),
                 comment.getDescription(), comment.getValoration(), comment.getUser().getUsername(),
-                comment.getPilgrimage().getId());
+                comment.getPilgrimage().getId(), comment.getDate());
     }
 
     public Comment convertFromRequest(final CommentRequest commentRequest){
         return new Comment(commentRequest.getId(),
                 commentRequest.getDescription(), commentRequest.getValoration(), userService.getUserByUsername(commentRequest.getUsername()),
-                pilgrimageService.getPilgrimageById(commentRequest.getPilgrimageId()));
+                pilgrimageService.getPilgrimageById(commentRequest.getPilgrimageId()), commentRequest.getDate());
     }
 
 

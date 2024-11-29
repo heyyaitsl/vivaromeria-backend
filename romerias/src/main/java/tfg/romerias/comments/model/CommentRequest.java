@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 
 @Data
 @Builder
@@ -18,5 +20,7 @@ public class CommentRequest {
     private Integer valoration;
     private String username;
     private Integer pilgrimageId;
+    private LocalDateTime date;
+
 
 }

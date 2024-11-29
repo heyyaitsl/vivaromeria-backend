@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import tfg.romerias.pilgrimage.model.Pilgrimage;
 import tfg.romerias.user.model.User;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Data
 @Builder
@@ -25,5 +27,7 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "id_pilgrimage")
     private Pilgrimage pilgrimage;
+    @Column(nullable = false)
+    private LocalDateTime date;
 
 }
