@@ -1,6 +1,8 @@
 package tfg.romerias.user.converter;
 
 import org.springframework.stereotype.Component;
+import tfg.romerias.comments.model.Comment;
+import tfg.romerias.comments.service.ICommentService;
 import tfg.romerias.floats.model.Floats;
 import tfg.romerias.floats.service.IFloatsService;
 import tfg.romerias.user.model.User;
@@ -15,18 +17,20 @@ import java.util.stream.Collectors;
 @Component
 public class UserConverter {
     private final IFloatsService floatsService;
+    private final ICommentService commentService;
 
-    public UserConverter(IFloatsService floatsService) {
+    public UserConverter(IFloatsService floatsService, ICommentService commentService) {
         this.floatsService = floatsService;
+        this.commentService = commentService;
     }
 
     public UserResponse convertToResponse(User user){
         return new UserResponse(user.getUsername(), user.getPassword(), user.getName(), user.getEmail(),
-                user.getPhoneNumber(), user.getRole(), getImage(user), getFloatsId(user.getFloats()), user.getComments());
+                user.getPhoneNumber(), user.getRole(), getImage(user), getFloatsId(user.getFloats()), getCommentsId(user.getComments()));
     }
     public User convertFromRequest(UserRequest user){
         return new User(user.getUsername(), user.getPassword(), user.getName(), user.getEmail(),
-                user.getPhoneNumber(), user.getRole(), getImage(user), getFloats(user.getFloats()), user.getComments());
+                user.getPhoneNumber(), user.getRole(), getImage(user), getFloats(user.getFloats()), getComments(user.getComments()));
     }
 
     private static byte[] getImage(UserRequest userRequest) {
@@ -54,6 +58,15 @@ public class UserConverter {
     private Set<Floats> getFloats(Set<Integer> floatsId){
         if(floatsId==null)return new HashSet<>();
         return floatsId.stream().map(floatsService::getFloatById).collect(Collectors.toSet());
+    }
+
+    private static Set<Integer> getCommentsId(Set<Comment> comments){
+        if(comments==null)return null;
+        return comments.stream().map(Comment::getId).collect(Collectors.toSet());
+    }
+    private Set<Comment> getComments(Set<Integer> commentsId){
+        if(commentsId==null)return new HashSet<>();
+        return commentsId.stream().map(commentService::getCommentById).collect(Collectors.toSet());
     }
 
 }

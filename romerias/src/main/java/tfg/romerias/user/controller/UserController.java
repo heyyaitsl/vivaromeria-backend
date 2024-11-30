@@ -41,6 +41,12 @@ public class UserController {
         User savedUser = userService.saveUser(converter.convertFromRequest(userRequest));
         return ResponseEntity.ok(converter.convertToResponse(savedUser));
     }
+
+    @PutMapping("/{username}")
+    public ResponseEntity<UserResponse> updateUser(@RequestBody UserRequest userRequest){
+        User savedUser = userService.saveUser(converter.convertFromRequest(userRequest));
+        return ResponseEntity.ok(converter.convertToResponse(savedUser));
+    }
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest loginRequest) {
         try {

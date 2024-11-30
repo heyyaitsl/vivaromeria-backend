@@ -23,6 +23,6 @@ public class UserRequest {
     private String role;
     private String photo;
     private Set<Integer> floats = new HashSet<>();
-    private Set<Comment> comments = new HashSet<>();
+    private Set<Integer> comments = new HashSet<>();
 
 }
