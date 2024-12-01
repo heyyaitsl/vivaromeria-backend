@@ -38,7 +38,7 @@ public class FloatsControllerIntegrationTest {
     @Test
     @Order(1)
     void when_you_call_floats_with_post_then_create() throws Exception{
-        String jsonRequest = "{ \"name\": \"Nueva carroza\", \"username\": \"Usuario\", \"price\": 30.0, \"maxPeople\": 70 }";
+        String jsonRequest = "{ \"name\": \"Nueva carroza\", \"username\": \"floats\", \"price\": 30.0, \"maxPeople\": 70 }";
 
         MvcResult mvcResult=mockMvc.perform(post("/floats")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -46,7 +46,7 @@ public class FloatsControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.name").value("Nueva carroza"))
-                .andExpect(jsonPath("$.username").value("Usuario"))
+                .andExpect(jsonPath("$.username").value("floats"))
                 .andExpect(jsonPath("$.description").doesNotExist())
                 .andExpect(jsonPath("$.price").value(30.0))
                 .andExpect(jsonPath("$.maxPeople").value(70))
@@ -64,7 +64,7 @@ public class FloatsControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(idAuxFloats))
                 .andExpect(jsonPath("$.name").value("Nueva carroza"))
-                .andExpect(jsonPath("$.username").value("Usuario"))
+                .andExpect(jsonPath("$.username").value("floats"))
                 .andExpect(jsonPath("$.description").doesNotExist())
                 .andExpect(jsonPath("$.price").value(30.0))
                 .andExpect(jsonPath("$.maxPeople").value(70))
@@ -73,14 +73,14 @@ public class FloatsControllerIntegrationTest {
     @Test
     @Order(3)
     void when_you_call_floats_with_put_id_then_update() throws Exception{
-        String jsonRequest = "{\"id\":"+idAuxFloats+",\"name\":\"Carroza Modificada\",\"username\":\"Usuariomodificado\",\"price\":40.0," +
+        String jsonRequest = "{\"id\":"+idAuxFloats+",\"name\":\"Carroza Modificada\",\"username\":\"floats2\",\"price\":40.0," +
                 "\"maxPeople\":200,\"description\":\"Descripcion modificada\"}";
 
         mockMvc.perform(put("/floats/{id}", idAuxFloats).contentType(MediaType.APPLICATION_JSON)
                         .content(jsonRequest))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Carroza Modificada"))
-                .andExpect(jsonPath("$.username").value("Usuariomodificado"))
+                .andExpect(jsonPath("$.username").value("floats2"))
                 .andExpect(jsonPath("$.description").value("Descripcion modificada"))
                 .andExpect(jsonPath("$.price").value("40.0"))
                 .andExpect(jsonPath("$.maxPeople").value("200"))
@@ -90,7 +90,7 @@ public class FloatsControllerIntegrationTest {
     @Test
     @Order(5)
     void when_you_call_add_Floats_then_add() throws Exception{
-        mockMvc.perform(put("/pilgrimages/{pilgrimageId}/addFloat/{floatsId}",1,idAuxFloats))
+        mockMvc.perform(get("/pilgrimages/{pilgrimageId}/addFloat/{floatsId}",1,idAuxFloats))
                 .andExpect(status().isOk());
     }
     @Test

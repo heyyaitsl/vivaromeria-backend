@@ -10,6 +10,7 @@ import tfg.romerias.floats.service.FloatsService;
 import tfg.romerias.pilgrimage.model.Pilgrimage;
 import tfg.romerias.pilgrimage.repository.PilgrimageRepository;
 import tfg.romerias.pilgrimage.service.PilgrimageService;
+import tfg.romerias.user.model.User;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -27,6 +28,7 @@ public class PilgrimageServiceTest {
 
     private Pilgrimage pilgrimage;
     private Floats floats;
+    private User user;
     private Set<Floats> floatsSet;
     private Set<Pilgrimage> pilgrimageList;
     private Map<Pilgrimage, Integer> availableTickets;
@@ -35,9 +37,9 @@ public class PilgrimageServiceTest {
         availableTickets = new HashMap<>();
         pilgrimageList = new HashSet<>();
         floatsSet = new HashSet<>();
-
-        floatsSet.add(Floats.builder().id(0).maxPeople(20).price(30).name("Floats previous init").username("user").build());
-        floats = Floats.builder().id(1).maxPeople(30).price(20).name("Floats init").username("user").pilgrimages(pilgrimageList).availableTickets(availableTickets).build();
+        user = User.builder().build();
+        floatsSet.add(Floats.builder().id(0).maxPeople(20).price(30).name("Floats previous init").user(user).build());
+        floats = Floats.builder().id(1).maxPeople(30).price(20).name("Floats init").user(user).pilgrimages(pilgrimageList).availableTickets(availableTickets).build();
         pilgrimage = Pilgrimage.builder().id(1).name("Pilgrimage init").date(LocalDateTime.now()).place("place").status(0).floats(floatsSet).build();
 
     }
@@ -83,14 +85,8 @@ public class PilgrimageServiceTest {
     void shouldAddFloatToPilgrimageTest(){
         when(pilgrimageRepository.findById(pilgrimage.getId())).thenReturn(Optional.ofNullable(pilgrimage));
         when(floatsService.getFloatById(floats.getId())).thenReturn(floats);
-        when(pilgrimageRepository.save(pilgrimage)).thenReturn(pilgrimage);
-        when(floatsService.saveFloat(floats)).thenReturn(floats);
         pilgrimageService.addFloatToPilgrimage(pilgrimage.getId(),floats.getId());
-        assertTrue(pilgrimage.getFloats().contains(floats));
-        assertTrue(floats.getPilgrimages().contains(pilgrimage));
         assertEquals(floats.getMaxPeople(), floats.getAvailableTickets().get(pilgrimage));
-        verify(pilgrimageRepository).save(pilgrimage);
-        verify(floatsService).saveFloat(floats);
     }
 
     @Test

@@ -133,7 +133,7 @@ public class PilgrimageControllerIntegrationTest {
     @Test
     @Order(5)
     void when_you_call_add_Floats_then_add() throws Exception{
-        mockMvc.perform(put("/pilgrimages/{pilgrimageId}/addFloat/{floatsId}",idAuxPilgrimage,3))
+        mockMvc.perform(get("/pilgrimages/{pilgrimageId}/addFloat/{floatsId}",idAuxPilgrimage,3))
                 .andExpect(status().isOk());
     }
 }
