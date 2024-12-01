@@ -28,12 +28,12 @@ public class FloatsController {
 
 
     @GetMapping()
-    @PreAuthorize("hasAuthority('ROLE_USER')")
     public List<FloatsResponse> getFloats(){
         List<Floats> floats = floatsService.getFloats();
         return floats.stream().map(converter::convertToResponse).collect(Collectors.toList());
     }
     @PostMapping()
+    @PreAuthorize("hasAuthority('ROLE_FLOATS')")
     public FloatsResponse addFloat(@RequestBody FloatsRequest floatsRequest){
         Floats floats = converter.convertFromRequest(floatsRequest);
         return converter.convertToResponse(floatsService.saveFloat(floats));
@@ -45,12 +45,14 @@ public class FloatsController {
     }
 
     @PutMapping("{id}")
+    @PreAuthorize("hasAuthority('ROLE_FLOATS')")
     public  ResponseEntity<FloatsResponse> updateFloat(@RequestBody FloatsRequest floatsRequest){
         Floats floats = floatsService.saveFloat(converter.convertFromRequest(floatsRequest));
         return ResponseEntity.ok(converter.convertToResponse(floats));
     }
 
     @DeleteMapping("{id}")
+    @PreAuthorize("hasAuthority('ROLE_FLOATS')")
     public ResponseEntity<Map<String,Boolean>> deleteFloat(@PathVariable Integer id){
         Floats floats = floatsService.getFloatById(id);
         floatsService.deleteFloat(floats);

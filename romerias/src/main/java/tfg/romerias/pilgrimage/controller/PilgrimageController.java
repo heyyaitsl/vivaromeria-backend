@@ -48,7 +48,7 @@ public class PilgrimageController {
         return ResponseEntity.ok(pilgrimages.map(converter::convertToResponse));
     }
 
-    @PostMapping(consumes = MediaType.ALL_VALUE)
+    @PostMapping()
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public PilgrimageResponse addPilgrimage(@RequestBody PilgrimageRequest pilgrimageRequest){
         System.out.println("PilgrimaRequest: " + pilgrimageRequest);
@@ -62,6 +62,7 @@ public class PilgrimageController {
     }
 
     @PutMapping("{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public  ResponseEntity<PilgrimageResponse> updatePilgrimage(@RequestBody PilgrimageRequest pilgrimageRequest){
         Pilgrimage pilgrimage = pilgrimageService.savePilgrimage(converter.convertFromRequest(pilgrimageRequest));
         return ResponseEntity.ok(converter.convertToResponse(pilgrimage));
@@ -84,6 +85,7 @@ public class PilgrimageController {
     }
 
     @GetMapping("{pilgrimageId}/addFloat/{floatId}")
+    @PreAuthorize("hasAuthority('ROLE_FLOATS')")
     public ResponseEntity<String> addFloatToPilgrimage(@PathVariable Integer pilgrimageId,
                                                        @PathVariable Integer floatId){
         pilgrimageService.addFloatToPilgrimage(pilgrimageId,floatId);

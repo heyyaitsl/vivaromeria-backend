@@ -31,9 +31,13 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable) // Desactivar CSRF
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, "/pilgrimages").hasAuthority("ROLE_ADMIN") // Solo admin puede crear
-                        .requestMatchers(HttpMethod.PUT, "/pilgrimages/**").hasAuthority("ROLE_ADMIN") // Solo admin puede editar
-                        .requestMatchers(HttpMethod.DELETE, "/pilgrimages/**").hasAuthority("ROLE_ADMIN") // Solo admin puede eliminar
+                        .requestMatchers(HttpMethod.POST, "/pilgrimages").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/pilgrimages/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/pilgrimages/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/pilgrimages/*/addFloat/*").hasAuthority("ROLE_FLOATS")
+                        .requestMatchers(HttpMethod.POST, "/floats").hasAuthority("ROLE_FLOATS")
+                        .requestMatchers(HttpMethod.PUT, "/floats/**").hasAuthority("ROLE_FLOATS")
+                        .requestMatchers(HttpMethod.DELETE, "/floats/**").hasAuthority("ROLE_FLOATS")
                         .anyRequest().permitAll() // Permite acceso libre a cualquier otra solicitud
                 )
                 .formLogin(AbstractHttpConfigurer::disable)
